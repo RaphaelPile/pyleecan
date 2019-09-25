@@ -122,7 +122,6 @@ class LamSlot(Lamination):
             class_name = slot.get("__class__")
             if class_name not in [
                 "Slot",
-                "Slot",
                 "Slot19",
                 "SlotMFlat",
                 "SlotMPolar",

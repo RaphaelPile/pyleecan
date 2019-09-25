@@ -21,5 +21,3 @@ def run(self):
 
     # Compute the magnetic force according to the airgap flux
     self.force.comp_force(output)
-    if self.force.is_comp_nodal_force:
-        self.force.comp_force_nodal()

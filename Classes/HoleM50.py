@@ -174,6 +174,8 @@ class HoleM50(HoleMag):
             if class_name not in [
                 "Magnet",
                 "Magnet",
+                "Magnet",
+                "Magnet",
                 "MagnetFlat",
                 "MagnetPolar",
                 "MagnetType10",

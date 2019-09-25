@@ -166,7 +166,6 @@ class Lamination(FrozenClass):
                     class_name = obj.get("__class__")
                     if class_name not in [
                         "Hole",
-                        "Hole",
                         "HoleMag",
                         "HoleM50",
                         "HoleM51",

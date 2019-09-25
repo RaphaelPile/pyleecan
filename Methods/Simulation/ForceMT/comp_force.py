@@ -10,9 +10,7 @@ def comp_force(self, output):
         an Output object (to update)
     """
 
-    name_subpart = self.force.name_subpart
+    self.comp_force_field(output)
 
-    self.force.comp_force_field(output, name_subpart)
-
-    if self.force.is_comp_nodal_force:
-        self.force.comp_force_nodal(output, name_subpart)
+    if self.is_comp_force_nodal:
+        self.comp_force_nodal(output)

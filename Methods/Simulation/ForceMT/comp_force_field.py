@@ -19,7 +19,7 @@ def comp_force_field(self, output):
     Br = output.mag.Br
     Bt = output.mag.Bt
 
-    # Compute AGSF with MT formula
+    # Compute AGSF with MT formula for stator part
     Prad = -(Br * Br - Bt * Bt) / (2 * mu_0)
     Ptan = -Br * Bt / mu_0
 

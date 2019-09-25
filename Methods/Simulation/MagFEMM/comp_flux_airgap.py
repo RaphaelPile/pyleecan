@@ -53,3 +53,4 @@ def comp_flux_airgap(self, output):
 
     # Solve for all time step and store all the results in output
     self.solve_FEMM(output, sym, FEMM_dict)
+    output.mag.FEMM_dict = FEMM_dict

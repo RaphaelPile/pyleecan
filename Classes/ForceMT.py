@@ -8,6 +8,7 @@ from pyleecan.Classes.Force import Force
 
 from pyleecan.Methods.Simulation.ForceMT.comp_force_field import comp_force_field
 from pyleecan.Methods.Simulation.ForceMT.comp_force_nodal import comp_force_nodal
+from pyleecan.Methods.Simulation.ForceMT.comp_force import comp_force
 
 from pyleecan.Classes.check import InitUnKnowClassError
 
@@ -21,6 +22,8 @@ class ForceMT(Force):
     comp_force_field = comp_force_field
     # cf Methods.Simulation.ForceMT.comp_force_nodal
     comp_force_nodal = comp_force_nodal
+    # cf Methods.Simulation.ForceMT.comp_force
+    comp_force = comp_force
     # save method is available in all object
     save = save
 

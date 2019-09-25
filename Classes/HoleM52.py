@@ -112,13 +112,6 @@ class HoleM52(HoleMag):
             class_name = magnet_0.get("__class__")
             if class_name not in [
                 "Magnet",
-                "Magnet",
-                "Magnet",
-                "Magnet",
-                "Magnet",
-                "Magnet",
-                "Magnet",
-                "Magnet",
                 "MagnetFlat",
                 "MagnetPolar",
                 "MagnetType10",
