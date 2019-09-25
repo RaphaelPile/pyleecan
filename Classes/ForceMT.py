@@ -6,7 +6,7 @@ from pyleecan.Classes.check import check_init_dict, check_var
 from pyleecan.Functions.save import save
 from pyleecan.Classes.Force import Force
 
-from pyleecan.Methods.Simulation.ForceMT.comp_force import comp_force
+from pyleecan.Methods.Simulation.ForceMT.comp_force_field import comp_force_field
 from pyleecan.Methods.Simulation.ForceMT.comp_force_nodal import comp_force_nodal
 
 from pyleecan.Classes.check import InitUnKnowClassError
@@ -17,14 +17,14 @@ class ForceMT(Force):
 
     VERSION = 1
 
-    # cf Methods.Simulation.ForceMT.comp_force
-    comp_force = comp_force
+    # cf Methods.Simulation.ForceMT.comp_force_field
+    comp_force_field = comp_force_field
     # cf Methods.Simulation.ForceMT.comp_force_nodal
     comp_force_nodal = comp_force_nodal
     # save method is available in all object
     save = save
 
-    def __init__(self, is_comp_nodal_force=False, init_dict=None):
+    def __init__(self, is_comp_force_nodal=False, init_dict=None):
         """Constructor of the class. Can be use in two ways :
         - __init__ (arg1 = 1, arg3 = 5) every parameters have name and default values
             for Matrix, None will initialise the property with an empty Matrix
@@ -35,13 +35,13 @@ class ForceMT(Force):
         object or dict can be given for pyleecan Object"""
 
         if init_dict is not None:  # Initialisation by dict
-            check_init_dict(init_dict, ["is_comp_nodal_force"])
+            check_init_dict(init_dict, ["is_comp_force_nodal"])
             # Overwrite default value with init_dict content
-            if "is_comp_nodal_force" in list(init_dict.keys()):
-                is_comp_nodal_force = init_dict["is_comp_nodal_force"]
+            if "is_comp_force_nodal" in list(init_dict.keys()):
+                is_comp_force_nodal = init_dict["is_comp_force_nodal"]
         # Initialisation by argument
         # Call Force init
-        super(ForceMT, self).__init__(is_comp_nodal_force=is_comp_nodal_force)
+        super(ForceMT, self).__init__(is_comp_force_nodal=is_comp_force_nodal)
         # The class is frozen (in Force init), for now it's impossible to
         # add new properties
 
@@ -80,5 +80,3 @@ class ForceMT(Force):
 
         # Set to None the properties inherited from Force
         super(ForceMT, self)._set_None()
-
-

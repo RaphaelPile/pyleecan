@@ -17,7 +17,7 @@ class Force(FrozenClass):
     # save method is available in all object
     save = save
 
-    def __init__(self, is_comp_nodal_force=False, init_dict=None):
+    def __init__(self, is_comp_force_nodal=False, init_dict=None):
         """Constructor of the class. Can be use in two ways :
         - __init__ (arg1 = 1, arg3 = 5) every parameters have name and default values
             for Matrix, None will initialise the property with an empty Matrix
@@ -28,13 +28,13 @@ class Force(FrozenClass):
         object or dict can be given for pyleecan Object"""
 
         if init_dict is not None:  # Initialisation by dict
-            check_init_dict(init_dict, ["is_comp_nodal_force"])
+            check_init_dict(init_dict, ["is_comp_force_nodal"])
             # Overwrite default value with init_dict content
-            if "is_comp_nodal_force" in list(init_dict.keys()):
-                is_comp_nodal_force = init_dict["is_comp_nodal_force"]
+            if "is_comp_force_nodal" in list(init_dict.keys()):
+                is_comp_force_nodal = init_dict["is_comp_force_nodal"]
         # Initialisation by argument
         self.parent = None
-        self.is_comp_nodal_force = is_comp_nodal_force
+        self.is_comp_force_nodal = is_comp_force_nodal
 
         # The class is frozen, for now it's impossible to add new properties
         self._freeze()
@@ -47,7 +47,7 @@ class Force(FrozenClass):
             Force_str += "parent = None " + linesep
         else:
             Force_str += "parent = " + str(type(self.parent)) + " object" + linesep
-        Force_str += "is_comp_nodal_force = " + str(self.is_comp_nodal_force)
+        Force_str += "is_comp_force_nodal = " + str(self.is_comp_force_nodal)
         return Force_str
 
     def __eq__(self, other):
@@ -55,7 +55,7 @@ class Force(FrozenClass):
 
         if type(other) != type(self):
             return False
-        if other.is_comp_nodal_force != self.is_comp_nodal_force:
+        if other.is_comp_force_nodal != self.is_comp_force_nodal:
             return False
         return True
 
@@ -64,7 +64,7 @@ class Force(FrozenClass):
         """
 
         Force_dict = dict()
-        Force_dict["is_comp_nodal_force"] = self.is_comp_nodal_force
+        Force_dict["is_comp_force_nodal"] = self.is_comp_force_nodal
         # The class name is added to the dict fordeserialisation purpose
         Force_dict["__class__"] = "Force"
         return Force_dict
@@ -72,18 +72,21 @@ class Force(FrozenClass):
     def _set_None(self):
         """Set all the properties to None (except pyleecan object)"""
 
-        self.is_comp_nodal_force = None
+        self.is_comp_force_nodal = None
 
-    def _get_is_comp_nodal_force(self):
-        """getter of is_comp_nodal_force"""
-        return self._is_comp_nodal_force
+    def _get_is_comp_force_nodal(self):
+        """getter of is_comp_force_nodal"""
+        return self._is_comp_force_nodal
 
-    def _set_is_comp_nodal_force(self, value):
-        """setter of is_comp_nodal_force"""
-        check_var("is_comp_nodal_force", value, "bool")
-        self._is_comp_nodal_force = value
+    def _set_is_comp_force_nodal(self, value):
+        """setter of is_comp_force_nodal"""
+        check_var("is_comp_force_nodal", value, "bool")
+        self._is_comp_force_nodal = value
 
-    # 1 to compute lumped tooth forces
+    # 1 to compute integrated nodal forces
     # Type : bool
-    is_comp_nodal_force = property(fget=_get_is_comp_nodal_force, fset=_set_is_comp_nodal_force,
-                                   doc=u"""1 to compute lumped tooth forces""")
+    is_comp_force_nodal = property(
+        fget=_get_is_comp_force_nodal,
+        fset=_set_is_comp_force_nodal,
+        doc=u"""1 to compute integrated nodal forces""",
+    )

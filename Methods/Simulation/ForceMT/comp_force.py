@@ -1,8 +1,5 @@
-import numpy as np
-
-
 def comp_force(self, output):
-    """Compute the air-gap surface force based on Maxwell Tensor (MT).
+    """Compute magnetic forces based on Maxwell Tensor (MT).
 
     Parameters
     ----------
@@ -13,16 +10,9 @@ def comp_force(self, output):
         an Output object (to update)
     """
 
-    mu_0 = 4 * np.pi * 1e-7
+    name_subpart = self.force.name_subpart
 
-    # Load magnetic flux
-    Br = output.mag.Br
-    Bt = output.mag.Bt
+    self.force.comp_force_field(output, name_subpart)
 
-    # Compute AGSF with MT formula
-    Prad = (Br * Br - Bt * Bt) / (2 * mu_0)
-    Ptan = Br * Bt / mu_0
-
-    # Store the results
-    output.struct.Prad = Prad
-    output.struct.Ptan = Ptan
+    if self.force.is_comp_nodal_force:
+        self.force.comp_force_nodal(output, name_subpart)
