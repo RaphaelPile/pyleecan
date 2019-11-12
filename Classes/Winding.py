@@ -2,15 +2,39 @@
 """Warning : this file has been generated, you shouldn't edit it"""
 
 from os import linesep
-from pyleecan.Classes.check import check_init_dict, check_var
+from pyleecan.Classes.check import check_init_dict, check_var, raise_
 from pyleecan.Functions.save import save
 from pyleecan.Classes.frozen import FrozenClass
 
-from pyleecan.Methods.Machine.Winding.comp_Ncspc import comp_Ncspc
-from pyleecan.Methods.Machine.Winding.comp_Ntspc import comp_Ntspc
-from pyleecan.Methods.Machine.Winding.comp_phasor_angle import comp_phasor_angle
-from pyleecan.Methods.Machine.Winding.comp_resistance_norm import comp_resistance_norm
-from pyleecan.Methods.Machine.Winding.comp_winding_factor import comp_winding_factor
+# Import all class method
+# Try/catch to remove unnecessary dependencies in unused method
+try:
+    from pyleecan.Methods.Machine.Winding.comp_Ncspc import comp_Ncspc
+except ImportError as error:
+    comp_Ncspc = error
+
+try:
+    from pyleecan.Methods.Machine.Winding.comp_Ntspc import comp_Ntspc
+except ImportError as error:
+    comp_Ntspc = error
+
+try:
+    from pyleecan.Methods.Machine.Winding.comp_phasor_angle import comp_phasor_angle
+except ImportError as error:
+    comp_phasor_angle = error
+
+try:
+    from pyleecan.Methods.Machine.Winding.comp_resistance_norm import (
+        comp_resistance_norm,
+    )
+except ImportError as error:
+    comp_resistance_norm = error
+
+try:
+    from pyleecan.Methods.Machine.Winding.comp_winding_factor import comp_winding_factor
+except ImportError as error:
+    comp_winding_factor = error
+
 
 from pyleecan.Classes.check import InitUnKnowClassError
 from pyleecan.Classes.Conductor import Conductor
@@ -21,16 +45,61 @@ class Winding(FrozenClass):
 
     VERSION = 1
 
+    # Check ImportError to remove unnecessary dependencies in unused method
     # cf Methods.Machine.Winding.comp_Ncspc
-    comp_Ncspc = comp_Ncspc
+    if isinstance(comp_Ncspc, ImportError):
+        comp_Ncspc = property(
+            fget=lambda x: raise_(
+                ImportError("Can't use Winding method comp_Ncspc: " + str(comp_Ncspc))
+            )
+        )
+    else:
+        comp_Ncspc = comp_Ncspc
     # cf Methods.Machine.Winding.comp_Ntspc
-    comp_Ntspc = comp_Ntspc
+    if isinstance(comp_Ntspc, ImportError):
+        comp_Ntspc = property(
+            fget=lambda x: raise_(
+                ImportError("Can't use Winding method comp_Ntspc: " + str(comp_Ntspc))
+            )
+        )
+    else:
+        comp_Ntspc = comp_Ntspc
     # cf Methods.Machine.Winding.comp_phasor_angle
-    comp_phasor_angle = comp_phasor_angle
+    if isinstance(comp_phasor_angle, ImportError):
+        comp_phasor_angle = property(
+            fget=lambda x: raise_(
+                ImportError(
+                    "Can't use Winding method comp_phasor_angle: "
+                    + str(comp_phasor_angle)
+                )
+            )
+        )
+    else:
+        comp_phasor_angle = comp_phasor_angle
     # cf Methods.Machine.Winding.comp_resistance_norm
-    comp_resistance_norm = comp_resistance_norm
+    if isinstance(comp_resistance_norm, ImportError):
+        comp_resistance_norm = property(
+            fget=lambda x: raise_(
+                ImportError(
+                    "Can't use Winding method comp_resistance_norm: "
+                    + str(comp_resistance_norm)
+                )
+            )
+        )
+    else:
+        comp_resistance_norm = comp_resistance_norm
     # cf Methods.Machine.Winding.comp_winding_factor
-    comp_winding_factor = comp_winding_factor
+    if isinstance(comp_winding_factor, ImportError):
+        comp_winding_factor = property(
+            fget=lambda x: raise_(
+                ImportError(
+                    "Can't use Winding method comp_winding_factor: "
+                    + str(comp_winding_factor)
+                )
+            )
+        )
+    else:
+        comp_winding_factor = comp_winding_factor
     # save method is available in all object
     save = save
 
@@ -114,7 +183,7 @@ class Winding(FrozenClass):
                 "CondType22",
             ]:
                 raise InitUnKnowClassError(
-                    "Unknow class name " + class_name + " in init_dict for " + prop_name
+                    "Unknow class name " + class_name + " in init_dict for conductor"
                 )
             # Dynamic import to call the correct constructor
             module = __import__("pyleecan.Classes." + class_name, fromlist=[class_name])
@@ -214,12 +283,12 @@ class Winding(FrozenClass):
         check_var("is_reverse_wind", value, "bool")
         self._is_reverse_wind = value
 
-    # 1 to reverse the default winding algorithm along the airgap (c,b,a instead of a,b,c along the trigonometric direction)
+    # 1 to reverse the default winding algorithm along the airgap (c, b, a instead of a, b, c along the trigonometric direction)
     # Type : bool
     is_reverse_wind = property(
         fget=_get_is_reverse_wind,
         fset=_set_is_reverse_wind,
-        doc=u"""1 to reverse the default winding algorithm along the airgap (c,b,a instead of a,b,c along the trigonometric direction)""",
+        doc=u"""1 to reverse the default winding algorithm along the airgap (c, b, a instead of a, b, c along the trigonometric direction)""",
     )
 
     def _get_Nslot_shift_wind(self):
@@ -231,12 +300,12 @@ class Winding(FrozenClass):
         check_var("Nslot_shift_wind", value, "int")
         self._Nslot_shift_wind = value
 
-    # 0 not to change the stator winding connection matrix built by MANATEE number of slots to shift the coils obtained with MANATEE winding algorithm (a,b,c becomes b,c,a with Nslot_shift_wind1=1)
+    # 0 not to change the stator winding connection matrix built by pyleecan number of slots to shift the coils obtained with pyleecan winding algorithm (a, b, c becomes b, c, a with Nslot_shift_wind1=1)
     # Type : int
     Nslot_shift_wind = property(
         fget=_get_Nslot_shift_wind,
         fset=_set_Nslot_shift_wind,
-        doc=u"""0 not to change the stator winding connection matrix built by MANATEE number of slots to shift the coils obtained with MANATEE winding algorithm (a,b,c becomes b,c,a with Nslot_shift_wind1=1)""",
+        doc=u"""0 not to change the stator winding connection matrix built by pyleecan number of slots to shift the coils obtained with pyleecan winding algorithm (a, b, c becomes b, c, a with Nslot_shift_wind1=1)""",
     )
 
     def _get_qs(self):

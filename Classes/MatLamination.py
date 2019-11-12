@@ -2,11 +2,17 @@
 """Warning : this file has been generated, you shouldn't edit it"""
 
 from os import linesep
-from pyleecan.Classes.check import check_init_dict, check_var
+from pyleecan.Classes.check import check_init_dict, check_var, raise_
 from pyleecan.Functions.save import save
 from pyleecan.Classes.MatMagnetics import MatMagnetics
 
-from pyleecan.Methods.Material.MatLamination.get_BH import get_BH
+# Import all class method
+# Try/catch to remove unnecessary dependencies in unused method
+try:
+    from pyleecan.Methods.Material.MatLamination.get_BH import get_BH
+except ImportError as error:
+    get_BH = error
+
 
 from pyleecan.Classes.check import InitUnKnowClassError
 from pyleecan.Classes.ImportMatrix import ImportMatrix
@@ -18,7 +24,14 @@ class MatLamination(MatMagnetics):
     VERSION = 1
 
     # cf Methods.Material.MatLamination.get_BH
-    get_BH = get_BH
+    if isinstance(get_BH, ImportError):
+        get_BH = property(
+            fget=lambda x: raise_(
+                ImportError("Can't use MatLamination method get_BH: " + str(get_BH))
+            )
+        )
+    else:
+        get_BH = get_BH
     # save method is available in all object
     save = save
 
@@ -58,7 +71,7 @@ class MatLamination(MatMagnetics):
                 "ImportGenVectLin",
             ]:
                 raise InitUnKnowClassError(
-                    "Unknow class name " + class_name + " in init_dict for " + prop_name
+                    "Unknow class name " + class_name + " in init_dict for BH_curve"
                 )
             # Dynamic import to call the correct constructor
             module = __import__("pyleecan.Classes." + class_name, fromlist=[class_name])
@@ -155,5 +168,5 @@ class MatLamination(MatMagnetics):
     BH_curve = property(
         fget=_get_BH_curve,
         fset=_set_BH_curve,
-        doc=u"""B(H) curve (two columns matrix, H and B(H)) """,
+        doc=u"""B(H) curve (two columns matrix, H and B(H))""",
     )

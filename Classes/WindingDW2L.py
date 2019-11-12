@@ -2,23 +2,38 @@
 """Warning : this file has been generated, you shouldn't edit it"""
 
 from os import linesep
-from pyleecan.Classes.check import check_init_dict, check_var
+from pyleecan.Classes.check import check_init_dict, check_var, raise_
 from pyleecan.Functions.save import save
 from pyleecan.Classes.WindingDW1L import WindingDW1L
 
-from pyleecan.Methods.Machine.WindingDW2L.get_dim_wind import get_dim_wind
+# Import all class method
+# Try/catch to remove unnecessary dependencies in unused method
+try:
+    from pyleecan.Methods.Machine.WindingDW2L.get_dim_wind import get_dim_wind
+except ImportError as error:
+    get_dim_wind = error
+
 
 from pyleecan.Classes.check import InitUnKnowClassError
 from pyleecan.Classes.Conductor import Conductor
 
 
 class WindingDW2L(WindingDW1L):
-    """double layer overlapping integral distributed winding, radial coil superposition """
+    """double layer overlapping integral distributed winding, radial coil superposition"""
 
     VERSION = 1
 
     # cf Methods.Machine.WindingDW2L.get_dim_wind
-    get_dim_wind = get_dim_wind
+    if isinstance(get_dim_wind, ImportError):
+        get_dim_wind = property(
+            fget=lambda x: raise_(
+                ImportError(
+                    "Can't use WindingDW2L method get_dim_wind: " + str(get_dim_wind)
+                )
+            )
+        )
+    else:
+        get_dim_wind = get_dim_wind
     # save method is available in all object
     save = save
 

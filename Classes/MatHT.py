@@ -2,7 +2,7 @@
 """Warning : this file has been generated, you shouldn't edit it"""
 
 from os import linesep
-from pyleecan.Classes.check import check_init_dict, check_var
+from pyleecan.Classes.check import check_init_dict, check_var, raise_
 from pyleecan.Functions.save import save
 from pyleecan.Classes.frozen import FrozenClass
 
@@ -119,12 +119,12 @@ class MatHT(FrozenClass):
         check_var("lambda_x", value, "float", Vmin=0)
         self._lambda_x = value
 
-    # thermal conductivity (XY is lamination plane; Z is rotation axis)
+    # thermal conductivity (XY is lamination plane, Z is rotation axis)
     # Type : float, min = 0
     lambda_x = property(
         fget=_get_lambda_x,
         fset=_set_lambda_x,
-        doc=u"""thermal conductivity (XY is lamination plane; Z is rotation axis)""",
+        doc=u"""thermal conductivity (XY is lamination plane, Z is rotation axis)""",
     )
 
     def _get_lambda_y(self):
@@ -136,12 +136,12 @@ class MatHT(FrozenClass):
         check_var("lambda_y", value, "float", Vmin=0)
         self._lambda_y = value
 
-    # thermal conductivity (XY is lamination plane; Z is rotation axis)
+    # thermal conductivity (XY is lamination plane, Z is rotation axis)
     # Type : float, min = 0
     lambda_y = property(
         fget=_get_lambda_y,
         fset=_set_lambda_y,
-        doc=u"""thermal conductivity (XY is lamination plane; Z is rotation axis)""",
+        doc=u"""thermal conductivity (XY is lamination plane, Z is rotation axis)""",
     )
 
     def _get_lambda_z(self):
@@ -153,12 +153,12 @@ class MatHT(FrozenClass):
         check_var("lambda_z", value, "float", Vmin=0)
         self._lambda_z = value
 
-    # thermal conductivity (XY is lamination plane; Z is rotation axis)
+    # thermal conductivity (XY is lamination plane, Z is rotation axis)
     # Type : float, min = 0
     lambda_z = property(
         fget=_get_lambda_z,
         fset=_set_lambda_z,
-        doc=u"""thermal conductivity (XY is lamination plane; Z is rotation axis)""",
+        doc=u"""thermal conductivity (XY is lamination plane, Z is rotation axis)""",
     )
 
     def _get_Cp(self):

@@ -2,7 +2,7 @@
 """Warning : this file has been generated, you shouldn't edit it"""
 
 from os import linesep
-from pyleecan.Classes.check import check_init_dict, check_var
+from pyleecan.Classes.check import check_init_dict, check_var, raise_
 from pyleecan.Functions.save import save
 from pyleecan.Classes.frozen import FrozenClass
 
@@ -89,7 +89,7 @@ class Material(FrozenClass):
             class_name = mag.get("__class__")
             if class_name not in ["MatMagnetics", "MatLamination", "MatMagnet"]:
                 raise InitUnKnowClassError(
-                    "Unknow class name " + class_name + " in init_dict for " + prop_name
+                    "Unknow class name " + class_name + " in init_dict for mag"
                 )
             # Dynamic import to call the correct constructor
             module = __import__("pyleecan.Classes." + class_name, fromlist=[class_name])

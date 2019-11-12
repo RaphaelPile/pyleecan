@@ -2,7 +2,7 @@
 """Warning : this file has been generated, you shouldn't edit it"""
 
 from os import linesep
-from pyleecan.Classes.check import check_init_dict, check_var
+from pyleecan.Classes.check import check_init_dict, check_var, raise_
 from pyleecan.Functions.save import save
 from pyleecan.Classes.frozen import FrozenClass
 
@@ -101,9 +101,9 @@ class MatElectrical(FrozenClass):
         check_var("rho", value, "float", Vmin=0)
         self._rho = value
 
-    # Resistivity at 20°C
+    # Resistivity at 20 deg C
     # Type : float, min = 0
-    rho = property(fget=_get_rho, fset=_set_rho, doc=u"""Resistivity at 20°C""")
+    rho = property(fget=_get_rho, fset=_set_rho, doc=u"""Resistivity at 20 deg C""")
 
     def _get_epsr(self):
         """getter of epsr"""
